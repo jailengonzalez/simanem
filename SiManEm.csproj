@@ -56,6 +56,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datos\SiManEmContexto.cs" />
+    <Compile Include="Migrations\202603162330015_CrearBaseDatos.cs" />
+    <Compile Include="Migrations\202603162330015_CrearBaseDatos.Designer.cs">
+      <DependentUpon>202603162330015_CrearBaseDatos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Modelos\Cargo.cs" />
+    <Compile Include="Modelos\Departamento.cs" />
+    <Compile Include="Modelos\Empleado.cs" />
+    <Compile Include="Modelos\HistorialSalario.cs" />
+    <Compile Include="Modelos\Usuario.cs" />
+    <Compile Include="Modelos\Vacaciones.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +78,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202603162330015_CrearBaseDatos.resx">
+      <DependentUpon>202603162330015_CrearBaseDatos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
