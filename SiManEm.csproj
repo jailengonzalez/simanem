@@ -61,6 +61,10 @@
     <Compile Include="Migrations\202603162330015_CrearBaseDatos.Designer.cs">
       <DependentUpon>202603162330015_CrearBaseDatos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202603191551582_GuardarDatosUsuario.cs" />
+    <Compile Include="Migrations\202603191551582_GuardarDatosUsuario.Designer.cs">
+      <DependentUpon>202603191551582_GuardarDatosUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modelos\Cargo.cs" />
     <Compile Include="Modelos\Departamento.cs" />
@@ -68,19 +72,32 @@
     <Compile Include="Modelos\HistorialSalario.cs" />
     <Compile Include="Modelos\Usuario.cs" />
     <Compile Include="Modelos\Vacaciones.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="Inicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inicio.Designer.cs">
+      <DependentUpon>Inicio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Servicios\AutenticacionServicio.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inicio.resx">
+      <DependentUpon>Inicio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202603162330015_CrearBaseDatos.resx">
       <DependentUpon>202603162330015_CrearBaseDatos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202603191551582_GuardarDatosUsuario.resx">
+      <DependentUpon>202603191551582_GuardarDatosUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

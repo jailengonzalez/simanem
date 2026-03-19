@@ -9,7 +9,6 @@ namespace SiManEm.Datos
         {
         }
 
-
         public virtual DbSet<Empleado> Empleados { get; set; }
         public virtual DbSet<Departamento> Departamentos { get; set; }
         public virtual DbSet<Cargo> Cargos { get; set; }

@@ -1,9 +1,8 @@
-﻿namespace SiManEm.Migrations
+namespace SiManEm.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
+    using SiManEm.Modelos;
+    using SiManEm.Servicios;
 
     internal sealed class Configuration : DbMigrationsConfiguration<SiManEm.Datos.SiManEmContexto>
     {
@@ -14,10 +13,15 @@
 
         protected override void Seed(SiManEm.Datos.SiManEmContexto context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data.
+            context.Usuarios.AddOrUpdate(
+                u => u.NombreUsuario,
+                new Usuario
+                {
+                    NombreUsuario = "admin",
+                    Contrasena = AutenticacionServicio.ObtenerHash("admin123"),
+                    Rol = "Administrador",
+                    Estado = "Activo"
+                });
         }
     }
 }
