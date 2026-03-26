@@ -18,5 +18,6 @@ namespace SiManEm.Modelos
         public string Descripcion { get; set; }
 
         public virtual ICollection<Empleado> Empleados { get; set; }
+        public virtual ICollection<Cargo> Cargos { get; set; }
     }
 }

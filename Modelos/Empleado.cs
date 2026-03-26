@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SiManEm.Servicios;
 
 namespace SiManEm.Modelos
 {
@@ -34,39 +35,79 @@ namespace SiManEm.Modelos
         public string Estado { get; set; }
 
         /// <summary>
-        /// Tiempo en la empresa calculado desde FechaInicio
+        /// Tiempo en la empresa calculado en anos y meses
         /// </summary>
         [NotMapped]
-        public TimeSpan TiempoEmpresa => DateTime.Now - FechaInicio;
+        public string TiempoEmpresa
+        {
+            get
+            {
+                var hoy = DateTime.Today;
+                var anios = hoy.Year - FechaInicio.Year;
+                var meses = hoy.Month - FechaInicio.Month;
+
+                if (hoy.Day < FechaInicio.Day)
+                {
+                    meses--;
+                }
+
+                if (meses < 0)
+                {
+                    anios--;
+                    meses += 12;
+                }
+
+                if (anios < 0)
+                {
+                    anios = 0;
+                    meses = 0;
+                }
+
+                return string.Format("{0} anios y {1} meses", anios, meses);
+            }
+        }
 
         /// <summary>
-        /// AFP - Seguridad social (aproximadamente 2.87% del salario)
+        /// AFP calculado segun configuracion
         /// </summary>
         [NotMapped]
-        public decimal AFP => Math.Round(Salario * 0.0287m, 2);
+        public decimal AFP
+        {
+            get
+            {
+                var p = CalculoNominaServicio.ObtenerParametros();
+                return Math.Round(Salario * (p.PorcentajeAfp / 100m), 2);
+            }
+        }
 
         /// <summary>
-        /// ARS - Seguro de salud (aproximadamente 3.04% del salario)
+        /// ARS calculado segun configuracion
         /// </summary>
         [NotMapped]
-        public decimal ARS => Math.Round(Salario * 0.0304m, 2);
+        public decimal ARS
+        {
+            get
+            {
+                var p = CalculoNominaServicio.ObtenerParametros();
+                return Math.Round(Salario * (p.PorcentajeArs / 100m), 2);
+            }
+        }
 
         /// <summary>
-        /// ISR - Impuesto sobre la renta (simplificado)
+        /// ISR calculado segun escala salarial configurada
         /// </summary>
         [NotMapped]
-        public decimal ISR => CalcularISR(Salario);
+        public decimal ISR
+        {
+            get
+            {
+                var p = CalculoNominaServicio.ObtenerParametros();
+                return CalculoNominaServicio.CalcularIsrMensual(Salario, p.EscalasIsr);
+            }
+        }
 
         public virtual ICollection<HistorialSalario> HistorialSalarios { get; set; }
         public virtual ICollection<Vacaciones> Vacaciones { get; set; }
 
-        private static decimal CalcularISR(decimal salarioBruto)
-        {
-            // Escala simplificada del ISR en República Dominicana
-            if (salarioBruto <= 416220.00m) return 0;
-            if (salarioBruto <= 624329.00m) return Math.Round((salarioBruto - 416220.00m) * 0.15m, 2);
-            if (salarioBruto <= 867123.00m) return Math.Round(31216.00m + (salarioBruto - 624329.00m) * 0.20m, 2);
-            return Math.Round(79764.00m + (salarioBruto - 867123.00m) * 0.25m, 2);
-        }
     }
 }

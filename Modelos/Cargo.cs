@@ -17,6 +17,12 @@ namespace SiManEm.Modelos
         [StringLength(500)]
         public string Descripcion { get; set; }
 
+        [Required]
+        public int DepartamentoID { get; set; }
+
+        [ForeignKey("DepartamentoID")]
+        public virtual Departamento Departamento { get; set; }
+
         public virtual ICollection<Empleado> Empleados { get; set; }
     }
 }

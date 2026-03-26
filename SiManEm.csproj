@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuracion\NominaConfiguracion.cs" />
     <Compile Include="Datos\SiManEmContexto.cs" />
     <Compile Include="Migrations\202603162330015_CrearBaseDatos.cs" />
     <Compile Include="Migrations\202603162330015_CrearBaseDatos.Designer.cs">
@@ -65,10 +66,26 @@
     <Compile Include="Migrations\202603191551582_GuardarDatosUsuario.Designer.cs">
       <DependentUpon>202603191551582_GuardarDatosUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202603242023430_DatosIniciales.cs" />
+    <Compile Include="Migrations\202603242023430_DatosIniciales.Designer.cs">
+      <DependentUpon>202603242023430_DatosIniciales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202603200001000_EnlazarCargoDepartamento.cs" />
+    <Compile Include="Migrations\202603242126534_RETENCIONES.cs" />
+    <Compile Include="Migrations\202603242126534_RETENCIONES.Designer.cs">
+      <DependentUpon>202603242126534_RETENCIONES.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202603251010000_ConfiguracionNominaFrontend.cs" />
+    <Compile Include="Migrations\202603242103308_Relacion.cs" />
+    <Compile Include="Migrations\202603242103308_Relacion.Designer.cs">
+      <DependentUpon>202603242103308_Relacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modelos\Cargo.cs" />
+    <Compile Include="Modelos\ConfiguracionNomina.cs" />
     <Compile Include="Modelos\Departamento.cs" />
     <Compile Include="Modelos\Empleado.cs" />
+    <Compile Include="Modelos\EscalaIsr.cs" />
     <Compile Include="Modelos\HistorialSalario.cs" />
     <Compile Include="Modelos\Usuario.cs" />
     <Compile Include="Modelos\Vacaciones.cs" />
@@ -84,7 +101,50 @@
     <Compile Include="Inicio.Designer.cs">
       <DependentUpon>Inicio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\ConfiguracionNominaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\ConfiguracionNominaForm.Designer.cs">
+      <DependentUpon>ConfiguracionNominaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\BusquedaSeleccionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\BusquedaSeleccionForm.Designer.cs">
+      <DependentUpon>BusquedaSeleccionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\EmpleadoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\EmpleadoForm.Designer.cs">
+      <DependentUpon>EmpleadoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\CargoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\CargoForm.Designer.cs">
+      <DependentUpon>CargoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\DepartamentoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\DepartamentoForm.Designer.cs">
+      <DependentUpon>DepartamentoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\EscalaIsrForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\EscalaIsrForm.Designer.cs">
+      <DependentUpon>EscalaIsrForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\VacacionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\VacacionForm.Designer.cs">
+      <DependentUpon>VacacionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Servicios\AutenticacionServicio.cs" />
+    <Compile Include="Servicios\CalculoNominaServicio.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Login.resx">
@@ -98,6 +158,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202603191551582_GuardarDatosUsuario.resx">
       <DependentUpon>202603191551582_GuardarDatosUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202603242023430_DatosIniciales.resx">
+      <DependentUpon>202603242023430_DatosIniciales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202603242103308_Relacion.resx">
+      <DependentUpon>202603242103308_Relacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202603242126534_RETENCIONES.resx">
+      <DependentUpon>202603242126534_RETENCIONES.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
