@@ -12,6 +12,7 @@ namespace SiManEm
         private System.Windows.Forms.Button botonTabDepartamentos;
         private System.Windows.Forms.Button botonTabCargos;
         private System.Windows.Forms.Button botonTabVacaciones;
+        private System.Windows.Forms.Button botonTabUsuarios;
         private System.Windows.Forms.Panel panelPrincipal;
         private System.Windows.Forms.TabControl tabControlContenido;
         private System.Windows.Forms.TabPage tabInicio;
@@ -19,6 +20,7 @@ namespace SiManEm
         private System.Windows.Forms.TabPage tabDepartamentos;
         private System.Windows.Forms.TabPage tabCargos;
         private System.Windows.Forms.TabPage tabVacaciones;
+        private System.Windows.Forms.TabPage tabUsuarios;
         private System.Windows.Forms.Label etiquetaTituloInicio;
         private System.Windows.Forms.Label etiquetaTituloEmpleados;
         private System.Windows.Forms.Label etiquetaTituloDepartamentos;
@@ -65,6 +67,18 @@ namespace SiManEm
         private System.Windows.Forms.Label etiquetaDashboardDepartamentoValor;
         private System.Windows.Forms.Button botonDashboardRefrescar;
         private System.Windows.Forms.DataGridView gridDashboardDepartamentos;
+        private System.Windows.Forms.Button botonExportarDashboard;
+        private System.Windows.Forms.Button botonExportarEmpleados;
+        private System.Windows.Forms.Button botonExportarDepartamentos;
+        private System.Windows.Forms.Button botonExportarCargos;
+        private System.Windows.Forms.Button botonExportarVacaciones;
+        private System.Windows.Forms.Panel panelCrudUsuarios;
+        private System.Windows.Forms.Button botonExportarUsuarios;
+        private System.Windows.Forms.Button botonRefrescarUsuario;
+        private System.Windows.Forms.Button botonEliminarUsuario;
+        private System.Windows.Forms.Button botonEditarUsuario;
+        private System.Windows.Forms.Button botonNuevoUsuario;
+        private System.Windows.Forms.DataGridView gridUsuarios;
 
         protected override void Dispose(bool disposing)
         {
@@ -78,6 +92,7 @@ namespace SiManEm
         private void InitializeComponent()
         {
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.botonTabUsuarios = new System.Windows.Forms.Button();
             this.botonTabVacaciones = new System.Windows.Forms.Button();
             this.botonTabCargos = new System.Windows.Forms.Button();
             this.botonTabDepartamentos = new System.Windows.Forms.Button();
@@ -89,6 +104,7 @@ namespace SiManEm
             this.panelPrincipal = new System.Windows.Forms.Panel();
             this.tabControlContenido = new System.Windows.Forms.TabControl();
             this.tabInicio = new System.Windows.Forms.TabPage();
+            this.botonExportarDashboard = new System.Windows.Forms.Button();
             this.gridDashboardDepartamentos = new System.Windows.Forms.DataGridView();
             this.botonDashboardRefrescar = new System.Windows.Forms.Button();
             this.etiquetaDashboardDepartamentoValor = new System.Windows.Forms.Label();
@@ -106,6 +122,7 @@ namespace SiManEm
             this.tabEmpleados = new System.Windows.Forms.TabPage();
             this.gridEmpleados = new System.Windows.Forms.DataGridView();
             this.panelCrudEmpleados = new System.Windows.Forms.Panel();
+            this.botonExportarEmpleados = new System.Windows.Forms.Button();
             this.botonRefrescarEmpleado = new System.Windows.Forms.Button();
             this.botonEliminarEmpleado = new System.Windows.Forms.Button();
             this.botonEditarEmpleado = new System.Windows.Forms.Button();
@@ -113,6 +130,7 @@ namespace SiManEm
             this.tabDepartamentos = new System.Windows.Forms.TabPage();
             this.gridDepartamentos = new System.Windows.Forms.DataGridView();
             this.panelCrudDepartamentos = new System.Windows.Forms.Panel();
+            this.botonExportarDepartamentos = new System.Windows.Forms.Button();
             this.botonRefrescarDepartamento = new System.Windows.Forms.Button();
             this.botonEliminarDepartamento = new System.Windows.Forms.Button();
             this.botonEditarDepartamento = new System.Windows.Forms.Button();
@@ -120,6 +138,7 @@ namespace SiManEm
             this.tabCargos = new System.Windows.Forms.TabPage();
             this.gridCargos = new System.Windows.Forms.DataGridView();
             this.panelCrudCargos = new System.Windows.Forms.Panel();
+            this.botonExportarCargos = new System.Windows.Forms.Button();
             this.botonRefrescarCargo = new System.Windows.Forms.Button();
             this.botonEliminarCargo = new System.Windows.Forms.Button();
             this.botonEditarCargo = new System.Windows.Forms.Button();
@@ -127,10 +146,19 @@ namespace SiManEm
             this.tabVacaciones = new System.Windows.Forms.TabPage();
             this.gridVacaciones = new System.Windows.Forms.DataGridView();
             this.panelCrudVacaciones = new System.Windows.Forms.Panel();
+            this.botonExportarVacaciones = new System.Windows.Forms.Button();
             this.botonRefrescarVacacion = new System.Windows.Forms.Button();
             this.botonEliminarVacacion = new System.Windows.Forms.Button();
             this.botonEditarVacacion = new System.Windows.Forms.Button();
             this.botonNuevaVacacion = new System.Windows.Forms.Button();
+            this.tabUsuarios = new System.Windows.Forms.TabPage();
+            this.gridUsuarios = new System.Windows.Forms.DataGridView();
+            this.panelCrudUsuarios = new System.Windows.Forms.Panel();
+            this.botonExportarUsuarios = new System.Windows.Forms.Button();
+            this.botonRefrescarUsuario = new System.Windows.Forms.Button();
+            this.botonEliminarUsuario = new System.Windows.Forms.Button();
+            this.botonEditarUsuario = new System.Windows.Forms.Button();
+            this.botonNuevoUsuario = new System.Windows.Forms.Button();
             this.panelBarraVentana = new System.Windows.Forms.Panel();
             this.etiquetaTituloInicio = new System.Windows.Forms.Label();
             this.botonMinimizar = new System.Windows.Forms.Button();
@@ -157,12 +185,16 @@ namespace SiManEm
             this.tabVacaciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridVacaciones)).BeginInit();
             this.panelCrudVacaciones.SuspendLayout();
+            this.tabUsuarios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridUsuarios)).BeginInit();
+            this.panelCrudUsuarios.SuspendLayout();
             this.panelBarraVentana.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(36)))), ((int)(((byte)(63)))));
+            this.panelMenu.Controls.Add(this.botonTabUsuarios);
             this.panelMenu.Controls.Add(this.botonTabVacaciones);
             this.panelMenu.Controls.Add(this.botonTabCargos);
             this.panelMenu.Controls.Add(this.botonTabDepartamentos);
@@ -174,6 +206,24 @@ namespace SiManEm
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(220, 540);
             this.panelMenu.TabIndex = 0;
+            // 
+            // botonTabUsuarios
+            // 
+            this.botonTabUsuarios.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.botonTabUsuarios.Dock = System.Windows.Forms.DockStyle.Top;
+            this.botonTabUsuarios.FlatAppearance.BorderSize = 0;
+            this.botonTabUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonTabUsuarios.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.botonTabUsuarios.ForeColor = System.Drawing.Color.White;
+            this.botonTabUsuarios.Location = new System.Drawing.Point(0, 375);
+            this.botonTabUsuarios.Name = "botonTabUsuarios";
+            this.botonTabUsuarios.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.botonTabUsuarios.Size = new System.Drawing.Size(220, 55);
+            this.botonTabUsuarios.TabIndex = 6;
+            this.botonTabUsuarios.Text = "Usuarios";
+            this.botonTabUsuarios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.botonTabUsuarios.UseVisualStyleBackColor = true;
+            this.botonTabUsuarios.Click += new System.EventHandler(this.botonTabUsuarios_Click);
             // 
             // botonTabVacaciones
             // 
@@ -316,6 +366,7 @@ namespace SiManEm
             this.tabControlContenido.Controls.Add(this.tabDepartamentos);
             this.tabControlContenido.Controls.Add(this.tabCargos);
             this.tabControlContenido.Controls.Add(this.tabVacaciones);
+            this.tabControlContenido.Controls.Add(this.tabUsuarios);
             this.tabControlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlContenido.Location = new System.Drawing.Point(18, 62);
             this.tabControlContenido.Name = "tabControlContenido";
@@ -326,6 +377,7 @@ namespace SiManEm
             // tabInicio
             // 
             this.tabInicio.BackColor = System.Drawing.Color.White;
+            this.tabInicio.Controls.Add(this.botonExportarDashboard);
             this.tabInicio.Controls.Add(this.gridDashboardDepartamentos);
             this.tabInicio.Controls.Add(this.botonDashboardRefrescar);
             this.tabInicio.Controls.Add(this.etiquetaDashboardDepartamentoValor);
@@ -345,6 +397,19 @@ namespace SiManEm
             this.tabInicio.Padding = new System.Windows.Forms.Padding(3);
             this.tabInicio.Size = new System.Drawing.Size(716, 434);
             this.tabInicio.TabIndex = 0;
+            // 
+            // botonExportarDashboard
+            // 
+            this.botonExportarDashboard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(36)))), ((int)(((byte)(63)))));
+            this.botonExportarDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonExportarDashboard.ForeColor = System.Drawing.Color.White;
+            this.botonExportarDashboard.Location = new System.Drawing.Point(576, 127);
+            this.botonExportarDashboard.Name = "botonExportarDashboard";
+            this.botonExportarDashboard.Size = new System.Drawing.Size(120, 30);
+            this.botonExportarDashboard.TabIndex = 14;
+            this.botonExportarDashboard.Text = "Exportar PDF";
+            this.botonExportarDashboard.UseVisualStyleBackColor = false;
+            this.botonExportarDashboard.Click += new System.EventHandler(this.botonExportarDashboard_Click);
             // 
             // gridDashboardDepartamentos
             // 
@@ -366,7 +431,7 @@ namespace SiManEm
             this.botonDashboardRefrescar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(36)))), ((int)(((byte)(63)))));
             this.botonDashboardRefrescar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.botonDashboardRefrescar.ForeColor = System.Drawing.Color.White;
-            this.botonDashboardRefrescar.Location = new System.Drawing.Point(590, 118);
+            this.botonDashboardRefrescar.Location = new System.Drawing.Point(470, 128);
             this.botonDashboardRefrescar.Name = "botonDashboardRefrescar";
             this.botonDashboardRefrescar.Size = new System.Drawing.Size(100, 30);
             this.botonDashboardRefrescar.TabIndex = 12;
@@ -534,6 +599,7 @@ namespace SiManEm
             // 
             // panelCrudEmpleados
             // 
+            this.panelCrudEmpleados.Controls.Add(this.botonExportarEmpleados);
             this.panelCrudEmpleados.Controls.Add(this.botonRefrescarEmpleado);
             this.panelCrudEmpleados.Controls.Add(this.botonEliminarEmpleado);
             this.panelCrudEmpleados.Controls.Add(this.botonEditarEmpleado);
@@ -543,6 +609,19 @@ namespace SiManEm
             this.panelCrudEmpleados.Name = "panelCrudEmpleados";
             this.panelCrudEmpleados.Size = new System.Drawing.Size(710, 48);
             this.panelCrudEmpleados.TabIndex = 1;
+            // 
+            // botonExportarEmpleados
+            // 
+            this.botonExportarEmpleados.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(36)))), ((int)(((byte)(63)))));
+            this.botonExportarEmpleados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonExportarEmpleados.ForeColor = System.Drawing.Color.White;
+            this.botonExportarEmpleados.Location = new System.Drawing.Point(379, 10);
+            this.botonExportarEmpleados.Name = "botonExportarEmpleados";
+            this.botonExportarEmpleados.Size = new System.Drawing.Size(120, 28);
+            this.botonExportarEmpleados.TabIndex = 4;
+            this.botonExportarEmpleados.Text = "Exportar PDF";
+            this.botonExportarEmpleados.UseVisualStyleBackColor = false;
+            this.botonExportarEmpleados.Click += new System.EventHandler(this.botonExportarEmpleados_Click);
             // 
             // botonRefrescarEmpleado
             // 
@@ -622,6 +701,7 @@ namespace SiManEm
             // 
             // panelCrudDepartamentos
             // 
+            this.panelCrudDepartamentos.Controls.Add(this.botonExportarDepartamentos);
             this.panelCrudDepartamentos.Controls.Add(this.botonRefrescarDepartamento);
             this.panelCrudDepartamentos.Controls.Add(this.botonEliminarDepartamento);
             this.panelCrudDepartamentos.Controls.Add(this.botonEditarDepartamento);
@@ -631,6 +711,19 @@ namespace SiManEm
             this.panelCrudDepartamentos.Name = "panelCrudDepartamentos";
             this.panelCrudDepartamentos.Size = new System.Drawing.Size(710, 48);
             this.panelCrudDepartamentos.TabIndex = 1;
+            // 
+            // botonExportarDepartamentos
+            // 
+            this.botonExportarDepartamentos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(36)))), ((int)(((byte)(63)))));
+            this.botonExportarDepartamentos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonExportarDepartamentos.ForeColor = System.Drawing.Color.White;
+            this.botonExportarDepartamentos.Location = new System.Drawing.Point(379, 10);
+            this.botonExportarDepartamentos.Name = "botonExportarDepartamentos";
+            this.botonExportarDepartamentos.Size = new System.Drawing.Size(120, 28);
+            this.botonExportarDepartamentos.TabIndex = 4;
+            this.botonExportarDepartamentos.Text = "Exportar PDF";
+            this.botonExportarDepartamentos.UseVisualStyleBackColor = false;
+            this.botonExportarDepartamentos.Click += new System.EventHandler(this.botonExportarDepartamentos_Click);
             // 
             // botonRefrescarDepartamento
             // 
@@ -710,6 +803,7 @@ namespace SiManEm
             // 
             // panelCrudCargos
             // 
+            this.panelCrudCargos.Controls.Add(this.botonExportarCargos);
             this.panelCrudCargos.Controls.Add(this.botonRefrescarCargo);
             this.panelCrudCargos.Controls.Add(this.botonEliminarCargo);
             this.panelCrudCargos.Controls.Add(this.botonEditarCargo);
@@ -719,6 +813,19 @@ namespace SiManEm
             this.panelCrudCargos.Name = "panelCrudCargos";
             this.panelCrudCargos.Size = new System.Drawing.Size(710, 48);
             this.panelCrudCargos.TabIndex = 1;
+            // 
+            // botonExportarCargos
+            // 
+            this.botonExportarCargos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(36)))), ((int)(((byte)(63)))));
+            this.botonExportarCargos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonExportarCargos.ForeColor = System.Drawing.Color.White;
+            this.botonExportarCargos.Location = new System.Drawing.Point(379, 10);
+            this.botonExportarCargos.Name = "botonExportarCargos";
+            this.botonExportarCargos.Size = new System.Drawing.Size(120, 28);
+            this.botonExportarCargos.TabIndex = 4;
+            this.botonExportarCargos.Text = "Exportar PDF";
+            this.botonExportarCargos.UseVisualStyleBackColor = false;
+            this.botonExportarCargos.Click += new System.EventHandler(this.botonExportarCargos_Click);
             // 
             // botonRefrescarCargo
             // 
@@ -798,6 +905,7 @@ namespace SiManEm
             // 
             // panelCrudVacaciones
             // 
+            this.panelCrudVacaciones.Controls.Add(this.botonExportarVacaciones);
             this.panelCrudVacaciones.Controls.Add(this.botonRefrescarVacacion);
             this.panelCrudVacaciones.Controls.Add(this.botonEliminarVacacion);
             this.panelCrudVacaciones.Controls.Add(this.botonEditarVacacion);
@@ -807,6 +915,19 @@ namespace SiManEm
             this.panelCrudVacaciones.Name = "panelCrudVacaciones";
             this.panelCrudVacaciones.Size = new System.Drawing.Size(710, 48);
             this.panelCrudVacaciones.TabIndex = 1;
+            // 
+            // botonExportarVacaciones
+            // 
+            this.botonExportarVacaciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(36)))), ((int)(((byte)(63)))));
+            this.botonExportarVacaciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonExportarVacaciones.ForeColor = System.Drawing.Color.White;
+            this.botonExportarVacaciones.Location = new System.Drawing.Point(379, 10);
+            this.botonExportarVacaciones.Name = "botonExportarVacaciones";
+            this.botonExportarVacaciones.Size = new System.Drawing.Size(120, 28);
+            this.botonExportarVacaciones.TabIndex = 4;
+            this.botonExportarVacaciones.Text = "Exportar PDF";
+            this.botonExportarVacaciones.UseVisualStyleBackColor = false;
+            this.botonExportarVacaciones.Click += new System.EventHandler(this.botonExportarVacaciones_Click);
             // 
             // botonRefrescarVacacion
             // 
@@ -859,6 +980,108 @@ namespace SiManEm
             this.botonNuevaVacacion.Text = "Nuevo";
             this.botonNuevaVacacion.UseVisualStyleBackColor = false;
             this.botonNuevaVacacion.Click += new System.EventHandler(this.botonNuevaVacacion_Click);
+            // 
+            // tabUsuarios
+            // 
+            this.tabUsuarios.BackColor = System.Drawing.Color.White;
+            this.tabUsuarios.Controls.Add(this.gridUsuarios);
+            this.tabUsuarios.Controls.Add(this.panelCrudUsuarios);
+            this.tabUsuarios.Location = new System.Drawing.Point(4, 22);
+            this.tabUsuarios.Name = "tabUsuarios";
+            this.tabUsuarios.Padding = new System.Windows.Forms.Padding(3);
+            this.tabUsuarios.Size = new System.Drawing.Size(716, 434);
+            this.tabUsuarios.TabIndex = 5;
+            // 
+            // gridUsuarios
+            // 
+            this.gridUsuarios.AllowUserToAddRows = false;
+            this.gridUsuarios.AllowUserToDeleteRows = false;
+            this.gridUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridUsuarios.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridUsuarios.Location = new System.Drawing.Point(3, 51);
+            this.gridUsuarios.Name = "gridUsuarios";
+            this.gridUsuarios.ReadOnly = true;
+            this.gridUsuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridUsuarios.Size = new System.Drawing.Size(710, 380);
+            this.gridUsuarios.TabIndex = 2;
+            // 
+            // panelCrudUsuarios
+            // 
+            this.panelCrudUsuarios.Controls.Add(this.botonExportarUsuarios);
+            this.panelCrudUsuarios.Controls.Add(this.botonRefrescarUsuario);
+            this.panelCrudUsuarios.Controls.Add(this.botonEliminarUsuario);
+            this.panelCrudUsuarios.Controls.Add(this.botonEditarUsuario);
+            this.panelCrudUsuarios.Controls.Add(this.botonNuevoUsuario);
+            this.panelCrudUsuarios.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelCrudUsuarios.Location = new System.Drawing.Point(3, 3);
+            this.panelCrudUsuarios.Name = "panelCrudUsuarios";
+            this.panelCrudUsuarios.Size = new System.Drawing.Size(710, 48);
+            this.panelCrudUsuarios.TabIndex = 1;
+            // 
+            // botonExportarUsuarios
+            // 
+            this.botonExportarUsuarios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(36)))), ((int)(((byte)(63)))));
+            this.botonExportarUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonExportarUsuarios.ForeColor = System.Drawing.Color.White;
+            this.botonExportarUsuarios.Location = new System.Drawing.Point(379, 10);
+            this.botonExportarUsuarios.Name = "botonExportarUsuarios";
+            this.botonExportarUsuarios.Size = new System.Drawing.Size(120, 28);
+            this.botonExportarUsuarios.TabIndex = 4;
+            this.botonExportarUsuarios.Text = "Exportar PDF";
+            this.botonExportarUsuarios.UseVisualStyleBackColor = false;
+            this.botonExportarUsuarios.Click += new System.EventHandler(this.botonExportarUsuarios_Click);
+            // 
+            // botonRefrescarUsuario
+            // 
+            this.botonRefrescarUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(36)))), ((int)(((byte)(63)))));
+            this.botonRefrescarUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRefrescarUsuario.ForeColor = System.Drawing.Color.White;
+            this.botonRefrescarUsuario.Location = new System.Drawing.Point(288, 10);
+            this.botonRefrescarUsuario.Name = "botonRefrescarUsuario";
+            this.botonRefrescarUsuario.Size = new System.Drawing.Size(85, 28);
+            this.botonRefrescarUsuario.TabIndex = 3;
+            this.botonRefrescarUsuario.Text = "Refrescar";
+            this.botonRefrescarUsuario.UseVisualStyleBackColor = false;
+            this.botonRefrescarUsuario.Click += new System.EventHandler(this.botonRefrescarUsuario_Click);
+            // 
+            // botonEliminarUsuario
+            // 
+            this.botonEliminarUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(36)))), ((int)(((byte)(63)))));
+            this.botonEliminarUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonEliminarUsuario.ForeColor = System.Drawing.Color.White;
+            this.botonEliminarUsuario.Location = new System.Drawing.Point(197, 10);
+            this.botonEliminarUsuario.Name = "botonEliminarUsuario";
+            this.botonEliminarUsuario.Size = new System.Drawing.Size(85, 28);
+            this.botonEliminarUsuario.TabIndex = 2;
+            this.botonEliminarUsuario.Text = "Eliminar";
+            this.botonEliminarUsuario.UseVisualStyleBackColor = false;
+            this.botonEliminarUsuario.Click += new System.EventHandler(this.botonEliminarUsuario_Click);
+            // 
+            // botonEditarUsuario
+            // 
+            this.botonEditarUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(36)))), ((int)(((byte)(63)))));
+            this.botonEditarUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonEditarUsuario.ForeColor = System.Drawing.Color.White;
+            this.botonEditarUsuario.Location = new System.Drawing.Point(106, 10);
+            this.botonEditarUsuario.Name = "botonEditarUsuario";
+            this.botonEditarUsuario.Size = new System.Drawing.Size(85, 28);
+            this.botonEditarUsuario.TabIndex = 1;
+            this.botonEditarUsuario.Text = "Editar";
+            this.botonEditarUsuario.UseVisualStyleBackColor = false;
+            this.botonEditarUsuario.Click += new System.EventHandler(this.botonEditarUsuario_Click);
+            // 
+            // botonNuevoUsuario
+            // 
+            this.botonNuevoUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(36)))), ((int)(((byte)(63)))));
+            this.botonNuevoUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonNuevoUsuario.ForeColor = System.Drawing.Color.White;
+            this.botonNuevoUsuario.Location = new System.Drawing.Point(15, 10);
+            this.botonNuevoUsuario.Name = "botonNuevoUsuario";
+            this.botonNuevoUsuario.Size = new System.Drawing.Size(85, 28);
+            this.botonNuevoUsuario.TabIndex = 0;
+            this.botonNuevoUsuario.Text = "Nuevo";
+            this.botonNuevoUsuario.UseVisualStyleBackColor = false;
+            this.botonNuevoUsuario.Click += new System.EventHandler(this.botonNuevoUsuario_Click);
             // 
             // panelBarraVentana
             // 
@@ -990,6 +1213,9 @@ namespace SiManEm
             this.tabVacaciones.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridVacaciones)).EndInit();
             this.panelCrudVacaciones.ResumeLayout(false);
+            this.tabUsuarios.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridUsuarios)).EndInit();
+            this.panelCrudUsuarios.ResumeLayout(false);
             this.panelBarraVentana.ResumeLayout(false);
             this.panelBarraVentana.PerformLayout();
             this.ResumeLayout(false);

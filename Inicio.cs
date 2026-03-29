@@ -1,19 +1,24 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using SiManEm.Datos;
 using SiManEm.Formularios;
 using SiManEm.Modelos;
+using SiManEm.Servicios;
 
 namespace SiManEm
 {
     public partial class Inicio : Form
     {
         private static readonly CultureInfo CulturaRd = new CultureInfo("es-DO");
+        private readonly ReportePdfServicio _reportePdfServicio = new ReportePdfServicio();
+        private readonly string _usuarioLogueado;
         private bool _cargandoComboDashboard;
 
         private class OpcionDepartamentoDashboard
@@ -26,8 +31,9 @@ namespace SiManEm
             }
         }
 
-        public Inicio()
+        public Inicio(string usuarioLogueado)
         {
+            _usuarioLogueado = string.IsNullOrWhiteSpace(usuarioLogueado) ? "UsuarioSistema" : usuarioLogueado.Trim();
             InitializeComponent();
             SeleccionarPestana(0);
         }
@@ -48,6 +54,7 @@ namespace SiManEm
             botonTabDepartamentos.BackColor = colorNormal;
             botonTabCargos.BackColor = colorNormal;
             botonTabVacaciones.BackColor = colorNormal;
+            botonTabUsuarios.BackColor = colorNormal;
 
             if (indiceActivo == 0)
             {
@@ -68,6 +75,10 @@ namespace SiManEm
             else if (indiceActivo == 4)
             {
                 botonTabVacaciones.BackColor = colorActivo;
+            }
+            else if (indiceActivo == 5)
+            {
+                botonTabUsuarios.BackColor = colorActivo;
             }
         }
 
@@ -101,6 +112,12 @@ namespace SiManEm
             etiquetaTituloInicio.Text = "Vacaciones";
         }
 
+        private void botonTabUsuarios_Click(object sender, System.EventArgs e)
+        {
+            SeleccionarPestana(5);
+            etiquetaTituloInicio.Text = "Usuarios";
+        }
+
         private void botonMinimizar_Click(object sender, System.EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
@@ -117,6 +134,7 @@ namespace SiManEm
             CargarDepartamentos();
             CargarCargos();
             CargarVacaciones();
+            CargarUsuarios();
         }
 
         private void CargarDashboard()
@@ -317,6 +335,23 @@ namespace SiManEm
             }
         }
 
+        private void CargarUsuarios()
+        {
+            using (var db = new SiManEmContexto())
+            {
+                gridUsuarios.DataSource = db.Usuarios
+                    .AsNoTracking()
+                    .Select(x => new
+                    {
+                        x.UsuarioID,
+                        x.NombreUsuario,
+                        x.Rol,
+                        x.Estado
+                    })
+                    .ToList();
+            }
+        }
+
         private void AplicarFormatoMonedaEnGrid(DataGridView grid)
         {
             if (grid == null || grid.Columns == null) return;
@@ -344,6 +379,34 @@ namespace SiManEm
         private string FormatearMonedaRd(decimal valor)
         {
             return valor.ToString("C2", CulturaRd);
+        }
+
+        private string ObtenerRutaExportacionPdf(string nombreBase)
+        {
+            var carpetaPublica = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments),
+                "SiManEm",
+                "Reportes");
+
+            Directory.CreateDirectory(carpetaPublica);
+
+            return Path.Combine(carpetaPublica, string.Format("{0}_{1:yyyyMMdd_HHmmss}.pdf", nombreBase, DateTime.Now));
+        }
+
+        private void AbrirPdfExportado(string ruta)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = ruta,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("El PDF se guardo, pero no se pudo abrir automaticamente: " + ex.Message);
+            }
         }
 
         private int? ObtenerIdSeleccionado(DataGridView grid, string nombreColumna)
@@ -438,6 +501,15 @@ namespace SiManEm
             CargarEmpleados();
         }
 
+        private void botonExportarEmpleados_Click(object sender, EventArgs e)
+        {
+            var ruta = ObtenerRutaExportacionPdf("Reporte_Empleados");
+            if (string.IsNullOrWhiteSpace(ruta)) return;
+
+            _reportePdfServicio.ExportarEmpleados(ruta, _usuarioLogueado);
+            AbrirPdfExportado(ruta);
+        }
+
         private void botonNuevoDepartamento_Click(object sender, EventArgs e)
         {
             using (var formulario = new DepartamentoForm("Nuevo Departamento", null))
@@ -511,6 +583,15 @@ namespace SiManEm
         private void botonRefrescarDepartamento_Click(object sender, EventArgs e)
         {
             CargarDepartamentos();
+        }
+
+        private void botonExportarDepartamentos_Click(object sender, EventArgs e)
+        {
+            var ruta = ObtenerRutaExportacionPdf("Reporte_Departamentos");
+            if (string.IsNullOrWhiteSpace(ruta)) return;
+
+            _reportePdfServicio.ExportarDepartamentos(ruta, _usuarioLogueado);
+            AbrirPdfExportado(ruta);
         }
 
         private void botonNuevoCargo_Click(object sender, EventArgs e)
@@ -591,6 +672,15 @@ namespace SiManEm
             CargarCargos();
         }
 
+        private void botonExportarCargos_Click(object sender, EventArgs e)
+        {
+            var ruta = ObtenerRutaExportacionPdf("Reporte_Cargos");
+            if (string.IsNullOrWhiteSpace(ruta)) return;
+
+            _reportePdfServicio.ExportarCargos(ruta, _usuarioLogueado);
+            AbrirPdfExportado(ruta);
+        }
+
         private void botonNuevaVacacion_Click(object sender, EventArgs e)
         {
             using (var formulario = new VacacionForm("Nueva Vacacion", null))
@@ -663,6 +753,112 @@ namespace SiManEm
             CargarVacaciones();
         }
 
+        private void botonExportarVacaciones_Click(object sender, EventArgs e)
+        {
+            var ruta = ObtenerRutaExportacionPdf("Reporte_Vacaciones");
+            if (string.IsNullOrWhiteSpace(ruta)) return;
+
+            _reportePdfServicio.ExportarVacaciones(ruta, _usuarioLogueado);
+            AbrirPdfExportado(ruta);
+        }
+
+        private void botonNuevoUsuario_Click(object sender, EventArgs e)
+        {
+            using (var formulario = new UsuarioForm("Nuevo Usuario", null))
+            {
+                if (formulario.ShowDialog(this) != DialogResult.OK) return;
+
+                if (string.IsNullOrWhiteSpace(formulario.ContrasenaTexto))
+                {
+                    MessageBox.Show("La contraseña es obligatoria.");
+                    return;
+                }
+
+                using (var db = new SiManEmContexto())
+                {
+                    db.Usuarios.Add(new Usuario
+                    {
+                        NombreUsuario = formulario.NombreUsuario,
+                        Contrasena = AutenticacionServicio.ObtenerHash(formulario.ContrasenaTexto),
+                        Rol = formulario.Rol,
+                        Estado = formulario.Estado
+                    });
+                    db.SaveChanges();
+                }
+            }
+
+            CargarUsuarios();
+        }
+
+        private void botonEditarUsuario_Click(object sender, EventArgs e)
+        {
+            var id = ObtenerIdSeleccionado(gridUsuarios, "UsuarioID");
+            if (id == null) return;
+
+            using (var db = new SiManEmContexto())
+            {
+                var entidad = db.Usuarios.FirstOrDefault(x => x.UsuarioID == id.Value);
+                if (entidad == null) return;
+
+                var copia = new Usuario
+                {
+                    UsuarioID = entidad.UsuarioID,
+                    NombreUsuario = entidad.NombreUsuario,
+                    Rol = entidad.Rol,
+                    Estado = entidad.Estado
+                };
+
+                using (var formulario = new UsuarioForm("Editar Usuario", copia))
+                {
+                    if (formulario.ShowDialog(this) != DialogResult.OK) return;
+
+                    entidad.NombreUsuario = formulario.NombreUsuario;
+                    entidad.Rol = formulario.Rol;
+                    entidad.Estado = formulario.Estado;
+
+                    if (!string.IsNullOrWhiteSpace(formulario.ContrasenaTexto))
+                    {
+                        entidad.Contrasena = AutenticacionServicio.ObtenerHash(formulario.ContrasenaTexto);
+                    }
+                }
+                db.SaveChanges();
+            }
+
+            CargarUsuarios();
+        }
+
+        private void botonEliminarUsuario_Click(object sender, EventArgs e)
+        {
+            var id = ObtenerIdSeleccionado(gridUsuarios, "UsuarioID");
+            if (id == null) return;
+
+            if (MessageBox.Show("Desea eliminar el usuario?", "Confirmar", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+
+            using (var db = new SiManEmContexto())
+            {
+                var entidad = db.Usuarios.FirstOrDefault(x => x.UsuarioID == id.Value);
+                if (entidad == null) return;
+                db.Usuarios.Remove(entidad);
+                db.SaveChanges();
+            }
+            CargarUsuarios();
+        }
+
+        private void botonRefrescarUsuario_Click(object sender, EventArgs e)
+        {
+            CargarUsuarios();
+        }
+
+        private void botonExportarUsuarios_Click(object sender, EventArgs e)
+        {
+            var ruta = ObtenerRutaExportacionPdf("Reporte_Usuarios");
+            if (string.IsNullOrWhiteSpace(ruta)) return;
+
+            _reportePdfServicio.ExportarUsuarios(ruta, _usuarioLogueado);
+            AbrirPdfExportado(ruta);
+        }
+
         private void comboDashboardDepartamento_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_cargandoComboDashboard)
@@ -676,6 +872,15 @@ namespace SiManEm
         private void botonDashboardRefrescar_Click(object sender, EventArgs e)
         {
             CargarDashboard();
+        }
+
+        private void botonExportarDashboard_Click(object sender, EventArgs e)
+        {
+            var ruta = ObtenerRutaExportacionPdf("Reporte_Dashboard");
+            if (string.IsNullOrWhiteSpace(ruta)) return;
+
+            _reportePdfServicio.ExportarResumenDashboard(ruta, _usuarioLogueado);
+            AbrirPdfExportado(ruta);
         }
 
         private void botonConfigNomina_Click(object sender, EventArgs e)

@@ -58,7 +58,7 @@ namespace SiManEm
             }
 
             this.Hide();
-            using (var inicio = new Inicio())
+            using (var inicio = new Inicio(usuarioEncontrado.NombreUsuario))
             {
                 inicio.ShowDialog();
             }
