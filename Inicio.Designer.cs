@@ -368,6 +368,7 @@ namespace SiManEm
             this.tabControlContenido.Controls.Add(this.tabVacaciones);
             this.tabControlContenido.Controls.Add(this.tabUsuarios);
             this.tabControlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlContenido.ItemSize = new System.Drawing.Size(0, 1);
             this.tabControlContenido.Location = new System.Drawing.Point(18, 62);
             this.tabControlContenido.Name = "tabControlContenido";
             this.tabControlContenido.SelectedIndex = 0;
@@ -392,10 +393,10 @@ namespace SiManEm
             this.tabInicio.Controls.Add(this.etiquetaDashboardTotalEmpleadosValor);
             this.tabInicio.Controls.Add(this.etiquetaDashboardTotalEmpleados);
             this.tabInicio.Controls.Add(this.botonConfigNomina);
-            this.tabInicio.Location = new System.Drawing.Point(4, 22);
+            this.tabInicio.Location = new System.Drawing.Point(4, 5);
             this.tabInicio.Name = "tabInicio";
             this.tabInicio.Padding = new System.Windows.Forms.Padding(3);
-            this.tabInicio.Size = new System.Drawing.Size(716, 434);
+            this.tabInicio.Size = new System.Drawing.Size(716, 451);
             this.tabInicio.TabIndex = 0;
             // 
             // botonExportarDashboard
@@ -423,7 +424,7 @@ namespace SiManEm
             this.gridDashboardDepartamentos.Name = "gridDashboardDepartamentos";
             this.gridDashboardDepartamentos.ReadOnly = true;
             this.gridDashboardDepartamentos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridDashboardDepartamentos.Size = new System.Drawing.Size(1178, 578);
+            this.gridDashboardDepartamentos.Size = new System.Drawing.Size(1178, 595);
             this.gridDashboardDepartamentos.TabIndex = 13;
             // 
             // botonDashboardRefrescar
