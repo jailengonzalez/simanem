@@ -620,7 +620,7 @@ namespace SiManEm
             this.botonExportarEmpleados.Name = "botonExportarEmpleados";
             this.botonExportarEmpleados.Size = new System.Drawing.Size(120, 28);
             this.botonExportarEmpleados.TabIndex = 4;
-            this.botonExportarEmpleados.Text = "Exportar PDF";
+            this.botonExportarEmpleados.Text = "Pagar nomina";
             this.botonExportarEmpleados.UseVisualStyleBackColor = false;
             this.botonExportarEmpleados.Click += new System.EventHandler(this.botonExportarEmpleados_Click);
             // 

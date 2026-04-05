@@ -250,10 +250,13 @@ namespace SiManEm
         {
             using (var db = new SiManEmContexto())
             {
-                var datos = db.Empleados
+                var empleados = db.Empleados
                     .Include(x => x.Departamento)
                     .Include(x => x.Cargo)
                     .AsNoTracking()
+                    .ToList();
+
+                var datos = empleados
                     .Select(x => new
                     {
                         x.EmpleadoID,
@@ -261,6 +264,7 @@ namespace SiManEm
                         Departamento = x.Departamento.Nombre,
                         Cargo = x.Cargo.Nombre,
                         x.FechaInicio,
+                        x.TiempoEmpresa,
                         x.Salario,
                         x.Estado
                     })
@@ -503,10 +507,10 @@ namespace SiManEm
 
         private void botonExportarEmpleados_Click(object sender, EventArgs e)
         {
-            var ruta = ObtenerRutaExportacionPdf("Reporte_Empleados");
+            var ruta = ObtenerRutaExportacionPdf("Pago_Nomina_Empleados");
             if (string.IsNullOrWhiteSpace(ruta)) return;
 
-            _reportePdfServicio.ExportarEmpleados(ruta, _usuarioLogueado);
+            _reportePdfServicio.ExportarPagoNominaEmpleados(ruta, _usuarioLogueado);
             AbrirPdfExportado(ruta);
         }
 

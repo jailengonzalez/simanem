@@ -131,6 +131,91 @@ namespace SiManEm.Servicios
             }
         }
 
+        public void ExportarPagoNominaEmpleados(string rutaPdf, string usuarioExportador = null)
+        {
+            using (var db = new SiManEmContexto())
+            {
+                var empleadosActivos = db.Empleados
+                    .Include(x => x.Departamento)
+                    .AsNoTracking()
+                    .ToList()
+                    .Where(x => string.Equals(x.Estado, "Activo", StringComparison.OrdinalIgnoreCase))
+                    .OrderBy(x => x.Departamento == null ? string.Empty : x.Departamento.Nombre)
+                    .ThenBy(x => x.Nombre)
+                    .ToList();
+
+                var detalleNomina = empleadosActivos.Select(e =>
+                {
+                    var descuentoTotal = e.AFP + e.ARS + e.ISR;
+                    var netoPagar = e.Salario - descuentoTotal;
+                    return new
+                    {
+                        e.EmpleadoID,
+                        Empleado = e.Nombre ?? string.Empty,
+                        Departamento = e.Departamento == null ? "N/A" : e.Departamento.Nombre,
+                        Salario = e.Salario,
+                        Afp = e.AFP,
+                        Ars = e.ARS,
+                        Isr = e.ISR,
+                        DescuentoTotal = descuentoTotal,
+                        NetoPagar = netoPagar
+                    };
+                }).ToList();
+
+                var totalBruto = detalleNomina.Sum(x => x.Salario);
+                var totalAfp = detalleNomina.Sum(x => x.Afp);
+                var totalArs = detalleNomina.Sum(x => x.Ars);
+                var totalIsr = detalleNomina.Sum(x => x.Isr);
+                var totalDescuentos = detalleNomina.Sum(x => x.DescuentoTotal);
+                var totalNetoPagar = detalleNomina.Sum(x => x.NetoPagar);
+
+                var resumen = new List<string>
+                {
+                    "Modulo: Empleados",
+                    "Proceso: Pago de nomina",
+                    string.Format("Total empleados activos: {0}", detalleNomina.Count)
+                };
+
+                var columnas = new List<ColumnaReporte>
+                {
+                    new ColumnaReporte { Titulo = "ID", Ancho = 30f, Derecha = true },
+                    new ColumnaReporte { Titulo = "Empleado", Ancho = 105f },
+                    new ColumnaReporte { Titulo = "Departamento", Ancho = 70f },
+                    new ColumnaReporte { Titulo = "Salario", Ancho = 62f, Derecha = true },
+                    new ColumnaReporte { Titulo = "AFP", Ancho = 52f, Derecha = true },
+                    new ColumnaReporte { Titulo = "ARS", Ancho = 52f, Derecha = true },
+                    new ColumnaReporte { Titulo = "ISR", Ancho = 52f, Derecha = true },
+                    new ColumnaReporte { Titulo = "Descuento", Ancho = 62f, Derecha = true },
+                    new ColumnaReporte { Titulo = "Neto", Ancho = 62f, Derecha = true }
+                };
+
+                var filas = detalleNomina.Select(r => new[]
+                {
+                    r.EmpleadoID.ToString(),
+                    r.Empleado,
+                    r.Departamento,
+                    r.Salario.ToString("C2", CulturaRd),
+                    r.Afp.ToString("C2", CulturaRd),
+                    r.Ars.ToString("C2", CulturaRd),
+                    r.Isr.ToString("C2", CulturaRd),
+                    r.DescuentoTotal.ToString("C2", CulturaRd),
+                    r.NetoPagar.ToString("C2", CulturaRd)
+                }).ToList();
+
+                var resumenFinal = new List<string>
+                {
+                    string.Format("Total bruto a pagar: {0}", totalBruto.ToString("C2", CulturaRd)),
+                    string.Format("Total descuento AFP: {0}", totalAfp.ToString("C2", CulturaRd)),
+                    string.Format("Total descuento ARS: {0}", totalArs.ToString("C2", CulturaRd)),
+                    string.Format("Total descuento ISR: {0}", totalIsr.ToString("C2", CulturaRd)),
+                    string.Format("Total descuentos generales: {0}", totalDescuentos.ToString("C2", CulturaRd)),
+                    string.Format("Total neto final de nomina: {0}", totalNetoPagar.ToString("C2", CulturaRd))
+                };
+
+                GenerarPdfConTabla("Pago de nomina de empleados", resumen, columnas, filas, rutaPdf, usuarioExportador, resumenFinal);
+            }
+        }
+
         public void ExportarDepartamentos(string rutaPdf, string usuarioExportador = null)
         {
             using (var db = new SiManEmContexto())
@@ -337,7 +422,14 @@ namespace SiManEm.Servicios
             }
         }
 
-        private void GenerarPdfConTabla(string titulo, List<string> resumen, List<ColumnaReporte> columnas, List<string[]> filas, string rutaPdf, string usuarioExportador)
+        private void GenerarPdfConTabla(
+            string titulo,
+            List<string> resumen,
+            List<ColumnaReporte> columnas,
+            List<string[]> filas,
+            string rutaPdf,
+            string usuarioExportador,
+            List<string> resumenFinal = null)
         {
             using (var fs = new FileStream(rutaPdf, FileMode.Create, FileAccess.Write))
             {
@@ -356,6 +448,19 @@ namespace SiManEm.Servicios
                 document.Add(new Paragraph(" "));
                 var tabla = CrearTabla(columnas, filas);
                 document.Add(tabla);
+
+                if (resumenFinal != null && resumenFinal.Any())
+                {
+                    document.Add(new Paragraph(" "));
+                    var fuenteTituloResumen = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11, new BaseColor(21, 36, 63));
+                    var fuenteResumenFinal = FontFactory.GetFont(FontFactory.HELVETICA, 10, new BaseColor(30, 45, 69));
+
+                    document.Add(new Paragraph("Resumen total de nomina", fuenteTituloResumen) { SpacingAfter = 4f });
+                    foreach (var linea in resumenFinal)
+                    {
+                        document.Add(new Paragraph(linea, fuenteResumenFinal) { SpacingAfter = 2f });
+                    }
+                }
 
                 document.Close();
             }
